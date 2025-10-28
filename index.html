@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Para mi princesa 💌</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<style>
+  body{
+    margin:0;
+    overflow:hidden;
+    height:100vh;
+    background: radial-gradient(circle at top,#ffe4ec 0%, #fff8fa 80%);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:'Dancing Script', cursive;
+  }
+
+  /* --- Cascada --- */
+  .cascada span{
+    position:absolute;
+    font-size:22px;
+    color:#ff5d8f;
+    animation:fall linear forwards;
+    opacity:0.8;
+    white-space:nowrap;
+    pointer-events:none;
+  }
+
+  @keyframes fall{
+    0%{
+      transform:translateY(-10vh) rotate(0deg);
+      opacity:1;
+    }
+    100%{
+      transform:translateY(110vh) rotate(360deg);
+      opacity:0;
+    }
+  }
+
+  /* --- Botón principal --- */
+  #openBtn{
+    position:relative;
+    z-index:3;
+    background:linear-gradient(45deg,#ff6b9d,#ff9dbb);
+    border:none;
+    color:white;
+    padding:16px 32px;
+    border-radius:40px;
+    font-size:20px;
+    cursor:pointer;
+    box-shadow:0 0 15px rgba(255,100,150,0.6);
+    transition:transform 0.2s;
+    text-shadow:0 1px 3px rgba(0,0,0,0.2);
+  }
+  #openBtn:hover{
+    transform:scale(1.05);
+  }
+
+  /* --- Carta flotante --- */
+  .carta{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%) scale(0);
+    width:360px;
+    max-width:90vw;
+    background:#fffaf5;
+    border-radius:20px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.25);
+    padding:28px;
+    text-align:left;
+    z-index:5;
+    border:2px solid #ffd6e0;
+    transition:all 0.6s cubic-bezier(.19,1,.22,1);
+  }
+
+  .carta.show{
+    transform:translate(-50%,-50%) scale(1);
+    animation:floatIn 1s ease;
+  }
+
+  @keyframes floatIn{
+    0%{transform:translate(-50%,-60%) scale(0.8); opacity:0;}
+    50%{transform:translate(-50%,-52%) scale(1.05); opacity:1;}
+    100%{transform:translate(-50%,-50%) scale(1); opacity:1;}
+  }
+
+  .carta p{
+    font-size:22px;
+    color:#5a4040;
+    line-height:1.4;
+    margin:0;
+  }
+
+  .heart{
+    text-align:center;
+    font-size:30px;
+    margin-bottom:10px;
+    color:#ff7b9c;
+    animation:beat 1.5s infinite;
+  }
+
+  @keyframes beat{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.2);}
+  }
+
+  /* --- Botón cerrar --- */
+  #closeBtn{
+    display:block;
+    margin:20px auto 0;
+    background:linear-gradient(45deg,#ff7b9c,#ff9dbb);
+    border:none;
+    color:white;
+    padding:10px 24px;
+    border-radius:30px;
+    font-size:16px;
+    cursor:pointer;
+    box-shadow:0 0 10px rgba(255,100,150,0.5);
+    transition:transform 0.2s;
+  }
+  #closeBtn:hover{
+    transform:scale(1.05);
+  }
+</style>
+</head>
+<body>
+  <div class="cascada" id="cascada"></div>
+
+  <button id="openBtn">💖 HAZ CLICK MI PRINCESA PARA ABRIR 💖</button>
+
+  <div class="carta" id="carta">
+    <div class="heart">❤️</div>
+    <p>
+Gracias mi niña por hacer mis días tan perfectos
+desde que te tengo en mi vida todo gira mejor
+gracias por todo lo que me haces sentir
+eres simplemente lo mejor del mundo
+eres tan perfecta que ni bajándote cada una de las estrellas sería suficiente para demostrarte todo lo que te mereces
+no hay palabras para lo que siento por ti
+eres tú MI PINCHECHAAAAA
+y en serio te lo digo desde lo más puro de mi corazón
+me gusta tu forma en cómo me miras
+tu sonrisa que hace que todo el tiempo piense en ella
+gracias por hacerme reír todo el tiempo
+te amo muchísimo jamás cambies
+    </p>
+    <button id="closeBtn">Cerrar 💌</button>
+  </div>
+
+<script>
+  const cascada = document.getElementById('cascada');
+  const palabras = ["Only You","Forever","Love","💖","💕","💞","💓","💗","Mi princesa","❤️"];
+  const openBtn = document.getElementById('openBtn');
+  const carta = document.getElementById('carta');
+  const closeBtn = document.getElementById('closeBtn');
+
+  // Generar cascada infinita
+  function crearPalabra(){
+    const span = document.createElement('span');
+    span.textContent = palabras[Math.floor(Math.random()*palabras.length)];
+    span.style.left = Math.random()*100 + "vw";
+    span.style.animationDuration = 5 + Math.random()*4 + "s";
+    span.style.fontSize = 18 + Math.random()*14 + "px";
+    cascada.appendChild(span);
+    setTimeout(()=>span.remove(),9000);
+  }
+  setInterval(crearPalabra,200);
+
+  // Abrir carta
+  openBtn.addEventListener('click', ()=>{
+    carta.classList.add('show');
+    openBtn.style.display='none';
+  });
+
+  // Cerrar carta
+  closeBtn.addEventListener('click', ()=>{
+    carta.classList.remove('show');
+    setTimeout(()=>openBtn.style.display='inline-block',600);
+  });
+</script>
+</body>
+</html>
